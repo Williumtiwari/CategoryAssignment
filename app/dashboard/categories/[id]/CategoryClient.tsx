@@ -23,7 +23,7 @@ export default function CategoryClient({ params }: { params: { id: string } }) {
   const [category, setCategory] = useState<Category | undefined>();
   useEffect(() => {
     if (categoryData) {
-      setCategory(categoryData.data.category); // Access the 'data' property of categoryData
+      setCategory(categoryData.data?.category); // Access the 'data' property of categoryData
       setIsLoading(false);
     }
     console.log(category);
