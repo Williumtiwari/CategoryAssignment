@@ -10,8 +10,5 @@ export default async function CategoryDetailPage({
 }: {
   params: { id: string };
 }) {
-  const { useCategory } = useCategories();
-  const category = await useCategory(params.id); // Fetch category data
-
-  return <CategoryClient category={category} params={params} />;
+  return <CategoryClient params={params} />;
 }

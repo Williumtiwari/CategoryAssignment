@@ -73,7 +73,7 @@ export const getCategoryById = async (categoryId: string) => {
     `/store_svc/v1/stores/${uuid}/categories/${categoryId}`
   );
 
-  return response.data;
+  return response.data as any;
 };
 
 export const searchCategories = async ({

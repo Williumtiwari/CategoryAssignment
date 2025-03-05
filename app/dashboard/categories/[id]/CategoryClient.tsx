@@ -13,22 +13,21 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Category, SubCategory } from "@/lib/api/categories";
+import { useCategories } from "@/hooks/use-categories";
 
-export default function CategoryClient({
-  category,
-  params,
-}: {
-  category: any;
-  params: { id: string };
-}) {
+export default function CategoryClient({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-
+  const { useCategory } = useCategories();
+  const categoryData = useCategory(params.id);
+  const [category, setCategory] = useState<Category | undefined>();
   useEffect(() => {
-    if (category) {
+    if (categoryData) {
+      setCategory(categoryData.data.category); // Access the 'data' property of categoryData
       setIsLoading(false);
     }
-  }, [category]);
+    console.log(category);
+  }, [categoryData]);
 
   if (isLoading) {
     return (
@@ -106,9 +105,9 @@ export default function CategoryClient({
           </div>
         </CardHeader>
         <CardContent>
-          {category?.sub_categories && category.sub_categories.length > 0 ? (
+          {category?.sub_categories && category?.sub_categories.length > 0 ? (
             <div className="space-y-6">
-              {category.sub_categories.map(
+              {category?.sub_categories.map(
                 (subcategory: SubCategory, index: number) => (
                   <div
                     key={subcategory.uuid || index}
